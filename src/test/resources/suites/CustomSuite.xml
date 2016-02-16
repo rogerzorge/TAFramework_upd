@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="emailtest" verbose = "1">
+
+    <test name="Test: email sending test">
+        <classes>
+            <!--<class name="by.epam.emailtest.test.BasePOTest" />-->
+            <class name="by.epam.emailtest.test.EmailPOTest" />
+        </classes>
+    </test>
+
+</suite>
