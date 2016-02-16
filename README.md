@@ -1,0 +1,1 @@
+TestAutoFramework_upd proj
