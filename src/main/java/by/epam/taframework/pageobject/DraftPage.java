@@ -1,5 +1,6 @@
 package by.epam.taframework.pageobject;
 
+import by.epam.taframework.utils.EventLogSwitcher;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,7 @@ public class DraftPage extends BasePage {
 
     public DraftItemPage goToDraftItemPage() {
         draftMailLink.click();
+        EventLogSwitcher.eventLogger("warn", "Go to Draft page");
         return PageFactory.initElements(driver, DraftItemPage.class);
     }
 

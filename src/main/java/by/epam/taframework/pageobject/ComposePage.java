@@ -1,5 +1,6 @@
 package by.epam.taframework.pageobject;
 
+import by.epam.taframework.utils.EventLogSwitcher;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
@@ -37,31 +38,40 @@ public class ComposePage extends BasePage {
         PageFactory.initElements(this.driver, this);
     }
 
+    public WebElement getSaveDraftButton() {
+        return this.saveDraftButton;
+    }
+
     public ComposePage setTo(String to) {
         toTextbox.clear();
         toTextbox.sendKeys(to);
+        EventLogSwitcher.eventLogger("info", "Set 'To' field");
         return this;
     }
 
     public ComposePage setSubject(String subject) {
         subjectTextbox.clear();
         subjectTextbox.sendKeys(subject);
+        EventLogSwitcher.eventLogger("info", "Set 'Subject' field");
         return this;
     }
 
     public ComposePage setBody(String body) {
         bodyTextbox.clear();
         bodyTextbox.sendKeys(body);
+        EventLogSwitcher.eventLogger("info", "Set 'Body' field");
         return this;
     }
 
     public ComposePage saveDraft() {
         saveDraftButton.click();
+        EventLogSwitcher.eventLogger("info", "Save draft email");
         return this;
     }
 
     public DraftPage goToDraftPage() {
         draftLink.click();
+        EventLogSwitcher.eventLogger("warn", "Go to Draft page");
         return PageFactory.initElements(driver, DraftPage.class);
     }
 
@@ -73,6 +83,7 @@ public class ComposePage extends BasePage {
         Actions builder = new Actions(driver);
         Action saveDraft = builder.click(saveDraftButton).build();
         saveDraft.perform();
+        EventLogSwitcher.eventLogger("info", "Save draft email via Actions class");
         return this;
     }
 
@@ -80,6 +91,7 @@ public class ComposePage extends BasePage {
         Actions builder = new Actions(driver);
         Action setAndSave = builder.sendKeys(toTextbox, to).build();
         setAndSave.perform();
+        EventLogSwitcher.eventLogger("info", "Set 'To' field via Actions class");
         return this;
     }
 

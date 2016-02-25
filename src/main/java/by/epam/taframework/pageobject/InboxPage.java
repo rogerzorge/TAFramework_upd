@@ -1,5 +1,7 @@
 package by.epam.taframework.pageobject;
 
+import by.epam.taframework.core.singleton.WebDriverSingleton;
+import by.epam.taframework.utils.EventLogSwitcher;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,15 +31,18 @@ public class InboxPage extends BasePage {
 
     public ComposePage goToComposePage() {
         composeButton.click();
+        EventLogSwitcher.eventLogger("warn", "Go to Compose page");
         return PageFactory.initElements(driver, ComposePage.class);
     }
 
     public void goToHTMLGmailPage() {
         driver.get(HTML_GMAIL_URL);
+        EventLogSwitcher.eventLogger("warn", "Go to HTML Gmail page");
     }
 
     public SentPage goToSentPage() {
         sentLink.click();
+        EventLogSwitcher.eventLogger("warn", "Go to Sent page");
         return PageFactory.initElements(driver, SentPage.class);
     }
 

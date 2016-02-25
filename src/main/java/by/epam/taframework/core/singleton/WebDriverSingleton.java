@@ -1,8 +1,13 @@
 package by.epam.taframework.core.singleton;
 
+import by.epam.taframework.core.factorymethod.WebDriverSwitcher;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,21 +23,8 @@ public class WebDriverSingleton {
 
     public static WebDriver getInstance(String browserType) {
         if (null == driver) {
-            switch (browserType) {
-                case "Firefox":
-                    driver = new FirefoxDriver();
-                    break;
-                case "Chrome":
-                    System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
-                    driver = new ChromeDriver();
-                    break;
-                default:
-                    driver = new FirefoxDriver(); //default web driver
-                    System.out.println("Firefox web driver was used as a default web driver! Type 'Chrome' as getInstance() method attribute to launch tests in Google Chrome browser!");
-                    break;
-            }
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    }
+            driver = new WebDriverSwitcher().driverSwitcher(browserType);
+        }
         return driver;
     }
 
@@ -40,4 +32,12 @@ public class WebDriverSingleton {
         driver.quit();
         driver = null;
     }
+
+    public static WebElement explicitWait(WebElement webElement) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(webElement));
+        WebElement element = wait.until(ExpectedConditions.visibilityOf(webElement));
+        return element;
+    }
+
 }

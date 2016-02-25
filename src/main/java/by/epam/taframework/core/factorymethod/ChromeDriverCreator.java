@@ -1,5 +1,7 @@
 package by.epam.taframework.core.factorymethod;
 
+import by.epam.taframework.core.singleton.WebDriverSingleton;
+import by.epam.taframework.utils.EventLogSwitcher;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -21,6 +23,7 @@ public class ChromeDriverCreator extends WebDriverCreator {
         try {
             service.start();
         } catch (IOException e) {
+            EventLogSwitcher.eventLogger("error", "Chrome Driver service start FAIL");
             e.printStackTrace();
         }
         driver = new ChromeDriver(service);

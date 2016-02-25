@@ -4,6 +4,7 @@ import by.epam.taframework.businessobject.Account;
 import by.epam.taframework.businessobject.Message;
 import by.epam.taframework.core.singleton.WebDriverSingleton;
 import by.epam.taframework.pageobject.*;
+import by.epam.taframework.utils.EventLogSwitcher;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +20,7 @@ import static org.testng.Assert.fail;
  */
 public class BasePOTest {
 
-    private WebDriver driver;
+    protected WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
     protected int randomNum;
 
@@ -41,6 +42,7 @@ public class BasePOTest {
         driver.manage().window().maximize();
         signInPage = new SignInPage(driver);
         driver.get(SignInPage.GMAIL_URL);
+        EventLogSwitcher.eventLogger("warn", "Load base URL");
 
         user01 = new Account("ivan.mailfortest", "Zaq1!Xsw2@");
         email01 = new Message("ivan.mailtest@mail.ru", "Test subject " + randomNum + " gmail", "Test body " + randomNum + " test");

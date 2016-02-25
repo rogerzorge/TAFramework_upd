@@ -1,5 +1,6 @@
 package by.epam.taframework.pageobject;
 
+import by.epam.taframework.utils.EventLogSwitcher;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,12 +43,14 @@ public class DraftItemPage extends BasePage {
 
     public InboxPage clickSendButton() {
         sendButton.click();
+        EventLogSwitcher.eventLogger("info", "Send email");
         return PageFactory.initElements(driver, InboxPage.class);
     }
 
     public InboxPage clickSendButtonJs() {
         JavascriptExecutor jsExec = (JavascriptExecutor) driver;
         jsExec.executeScript("document.getElementsByName('nvp_bu_send')[0].click();");
+        EventLogSwitcher.eventLogger("info", "Send email via JS");
         return PageFactory.initElements(driver, InboxPage.class);
     }
 

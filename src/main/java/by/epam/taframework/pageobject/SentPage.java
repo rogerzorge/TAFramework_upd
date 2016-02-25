@@ -1,5 +1,6 @@
 package by.epam.taframework.pageobject;
 
+import by.epam.taframework.utils.EventLogSwitcher;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +28,7 @@ public class SentPage extends BasePage {
 
     public SignInPage clickLogoutLink() {
         logoutLink.click();
+        EventLogSwitcher.eventLogger("info", "Logout from Gmail");
         return PageFactory.initElements(driver, SignInPage.class);
     }
 
