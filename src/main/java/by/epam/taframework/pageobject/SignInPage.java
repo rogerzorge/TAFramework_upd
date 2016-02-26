@@ -2,8 +2,6 @@ package by.epam.taframework.pageobject;
 
 import java.lang.String;
 
-import by.epam.taframework.core.singleton.WebDriverSingleton;
-import by.epam.taframework.utils.EventLogSwitcher;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,19 +39,19 @@ public class SignInPage extends BasePage {
 
     public SignInPage setEmail(String emailValue) {
         emailTextbox.sendKeys(emailValue);
-        EventLogSwitcher.eventLogger("info", "Email was set");
+        getLogger().info("Email was set");
         return this;
     }
 
     public SignInPage goToPasswPage() {
         nextButton.click();
-        EventLogSwitcher.eventLogger("info", "Go to Password page");
+        getLogger().info("Go to Password page");
         return this;
     }
 
     public SignInPage setPasswd(String passwdValue) {
         passwdTextbox.sendKeys(passwdValue);
-        EventLogSwitcher.eventLogger("info", "Password was set");
+        getLogger().info("Password was set");
         return this;
     }
 
@@ -65,7 +63,7 @@ public class SignInPage extends BasePage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        EventLogSwitcher.eventLogger("warn", "Go to Inbox page");
+        getLogger().warn("Go to Inbox page");
         return PageFactory.initElements(driver, InboxPage.class);
     }
 

@@ -1,5 +1,7 @@
 package by.epam.taframework.pageobject;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -7,11 +9,14 @@ import org.openqa.selenium.WebDriver;
  */
 public abstract class BasePage {
 
-    protected String pageTitle;
     protected WebDriver driver;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public Logger getLogger() {
+        return LogManager.getRootLogger();
     }
 
 }

@@ -1,8 +1,6 @@
 package by.epam.emailtest.test;
 
-import by.epam.taframework.utils.HighlightElement;
-import by.epam.taframework.utils.TakeScreenshot;
-import org.openqa.selenium.TakesScreenshot;
+import by.epam.taframework.core.singleton.WebDriverSingleton;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -18,9 +16,9 @@ public class EmailPOTest extends BasePOTest {
                                 .goToPasswPage()
                                 .setPasswd(user01.getPassw())
                                 .goToInboxPage();
-        TakeScreenshot.takeScreenshot(super.driver, "accountLoginTest_");
+        WebDriverSingleton.takeScreenshot("accountLoginTest_");
         inboxPage.goToHTMLGmailPage();
-        TakeScreenshot.takeScreenshot(super.driver, "accountLoginTesthtml_");
+        WebDriverSingleton.takeScreenshot("accountLoginTesthtml_");
         assertEquals(inboxPage.getComposeLabel(), "Compose Mail", "Wasn't login (asserted elements are not equal)");
     }
 
@@ -33,21 +31,21 @@ public class EmailPOTest extends BasePOTest {
                                 .setBody(email01.getBodyField())
 //                                .saveDraft();
                                 .saveDraftActions();    //new PO method that emulates LMC through Actions class API
-        HighlightElement.highlightElement(super.driver, composePage.getSaveDraftButton(), "emailComposeTest_highlighted_");
+        WebDriverSingleton.highlightElement(composePage.getSaveDraftButton(), "emailComposeTest_highlighted_");
         assertEquals(composePage.getDraftSavedLabel(), "Your message has been saved.", "Draft not saved (asserted elements are not equal)");
     }
 
     @Test(testName = "inDraft", description = "An email can be found in Draft test", priority = 2)
     public void presentInDraftTest() {
         draftPage = composePage.goToDraftPage();
-        TakeScreenshot.takeScreenshot(super.driver, "presentInDraftTest_");
+        WebDriverSingleton.takeScreenshot("presentInDraftTest_");
         assertEquals(draftPage.getDraftTitle(), "Test subject " + randomNum + " gmail - Test body " + randomNum + " test", "No saved draft mail in Draft (asserted elements are not equal)");
     }
 
     @Test(testName = "fieldsCheck", description = "Saved as draft email fields(To, Subject, Body) verification", priority = 3)
     public void draftEmailFieldsTest() {
         draftItemPage = draftPage.goToDraftItemPage();
-        TakeScreenshot.takeScreenshot(super.driver, "draftEmailFieldsTest_");
+        WebDriverSingleton.takeScreenshot("draftEmailFieldsTest_");
         assertEquals(draftItemPage.getTo(), email01.getToField(), "To is incorrect (asserted elements are not equal)");
         assertEquals(draftItemPage.getSubject(), email01.getSubjectField(), "Subject is incorrect (asserted elements are not equal)");
         assertEquals(draftItemPage.getBody(), email01.getBodyField(), "Body is incorrect (asserted elements are not equal)");
@@ -58,14 +56,14 @@ public class EmailPOTest extends BasePOTest {
 //        draftItemPage.clickSendButton();
         draftItemPage.clickSendButtonJs();  //new PO method that realizes JS Executor based clicker
         sentPage = inboxPage.goToSentPage();
-        TakeScreenshot.takeScreenshot(super.driver, "emailSendTest_");
+        WebDriverSingleton.takeScreenshot("emailSendTest_");
         assertEquals(sentPage.getSentTitle(), "Test subject " + randomNum + " gmail - Test body " + randomNum + " test", "Mail wasn't sent (asserted elements are not equal)");
     }
 
     @Test(testName = "Logout", description = "Gmail Account logOUT test", priority = 5)
     public void accountLogoutTest() {
         sentPage.clickLogoutLink();
-        TakeScreenshot.takeScreenshot(super.driver, "accountLogoutTest_");
+        WebDriverSingleton.takeScreenshot("accountLogoutTest_");
         assertEquals(signInPage.getHeaderTitle(), "Sign in to continue to Gmail", "Wasn't logout (asserted elements are not equal)");
     }
 
